@@ -1,16 +1,18 @@
 echo ">>> script starting process..."
 
+LOCAL_STACK_PORT=5566
+
 echo "creating lambda..."
 LAMBDA_NAME="siproad-orders-lambda"
 LAMBDA_RUNTIME="nodejs18.x"
 LAMBDA_HANDLER="dist/main.handler"
 LAMBDA_ROLE="arn:aws:iam::000000000000:role/lambda-role"  # Puede ser cualquier valor simulado
-LAMBDA_ZIP_PATH="/etc/localstack/siproad-orders-lambda.zip"
+LAMBDA_ZIP_PATH="lambda.zip"
 
 # Verifica si el archivo ZIP existe antes de crear el Lambda
 if [ -f "$LAMBDA_ZIP_PATH" ]; then
   
-  awslocal lambda create-function \
+  aws --endpoint-url=http://localhost:$LOCAL_STACK_PORT lambda create-function \
     --function-name "$LAMBDA_NAME" \
     --runtime "$LAMBDA_RUNTIME" \
     --role "$LAMBDA_ROLE" \
@@ -25,13 +27,13 @@ else
 fi
 
 echo "creating subscriptions lambda to SQS..."
-aws --endpoint-url=http://localhost:4566 lambda create-event-source-mapping \
+aws --endpoint-url=http://localhost:$LOCAL_STACK_PORT lambda create-event-source-mapping \
   --function-name "$LAMBDA_NAME" \
   --event-source arn:aws:sqs:us-east-1:000000000000:siproad-admin-orders-sqs \
   --batch-size 10 \
   --function-response-types ReportBatchItemFailures
 
-aws --endpoint-url=http://localhost:4566 lambda create-event-source-mapping \
+aws --endpoint-url=http://localhost:$LOCAL_STACK_PORT lambda create-event-source-mapping \
   --function-name "$LAMBDA_NAME" \
   --event-source arn:aws:sqs:us-east-1:000000000000:siproad-products-orders-sqs \
   --batch-size 10 \
