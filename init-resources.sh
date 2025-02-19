@@ -1,6 +1,6 @@
 echo ">>> script starting process..."
 
-LOCAL_STACK_PORT=5566
+LOCAL_STACK_PORT=4566
 
 echo "creating lambda..."
 LAMBDA_NAME="siproad-orders-lambda"

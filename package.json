@@ -18,9 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "lambda-delete-zip": "if exist lambda.zip del /F /Q lambda.zip",
-    "lambda-build": "npm run lambda-delete-zip && npm install && npm run build && npm prune --production && 7z a -r lambda.zip dist node_modules .env package.json && npm install",
-    "lambda-publish": "sh init-resources.sh"
+    "delete-lambda-zip": "if exist lambda.zip del /F /Q lambda.zip",
+    "build-lambda": "npm run delete-lambda-zip && npm install && npm run build && npm prune --production && 7z a -r lambda.zip dist node_modules .env package.json && npm install",
+    "publish-lambda": "sh init-resources.sh"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
