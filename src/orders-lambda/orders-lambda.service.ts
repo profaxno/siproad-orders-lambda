@@ -39,7 +39,7 @@ export class OrdersLambdaService {
 
     let i = 0;
     for (const record of event.Records) {
-      this.logger.log(`[${i}] processEvent: processing message, messageId=${record.messageId}`);
+      this.logger.warn(`[${i}] processEvent: processing message, messageId=${record.messageId}`);
 
       await this.processMessage(record)
       .then( (responseDto: OrdersResponseDto) => {

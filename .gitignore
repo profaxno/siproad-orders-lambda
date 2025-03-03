@@ -56,4 +56,5 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /localstack_volumen
-lambda.zip
+siproad-products-lambda.zip
+siproad-sales-lambda.zip
