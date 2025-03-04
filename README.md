@@ -3,7 +3,7 @@
 </p>
 
 # siproad-sales-lambda
-Lambda que replica la información en el microservicio de siproad-products-api.
+Lambda que replica la información en el microservicio de siproad-sales-api.
 
 ```
 - Lenguaje: Nodejs (Nest), typescript.
